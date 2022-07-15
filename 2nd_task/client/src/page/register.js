@@ -16,15 +16,15 @@ function Register() {
 	const [passwordMatchMsg, setPasswordMatchMsg] = useState(' ');
 	const [passwordMatchColor, setPasswordMatchColor] = useState('');
 
-	async function registerUser(event){
+	async function registerUser(event) {
 		event.preventDefault();
 
-		if(password !== password2){
+		if (password !== password2) {
 			alert('Passwords do not match');
 			return;
 		}
 
-		const response = await fetch('http://localhost:3000/user/register', {
+		const response = await fetch('http://localhost:3001/user/register', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -37,25 +37,25 @@ function Register() {
 			}),
 		})
 		const status = await response.status;
-		switch(status){
+		switch (status) {
 			case 201:
 				alert('User registered successfully');
 				window.location.href = '/login';
-			break;
+				break;
 			case 409:
 				alert('Username or Email already taken');
-			break;
+				break;
 			case 400:
 				alert('Invalid input');
-			break;
+				break;
 			case 500:
 				alert('Server error');
-			break;
+				break;
 		}
 	}
 
-	async function validateUsename(tempUserName){
-		if(tempUserName.length <6){
+	async function validateUsename(tempUserName) {
+		if (tempUserName.length < 6) {
 			setUsernameValidationMsg('Username must be at least 6 characters long')
 			setUsernameValidationColor('darkred')
 			return;
@@ -71,37 +71,37 @@ function Register() {
 			}),
 		})
 		const status = await response.status;
-		switch(status){
+		switch (status) {
 			case 200:
 				setUsernameValidationMsg('Username available')
 				setUsernameValidationColor('Green')
-			break;
+				break;
 			case 409:
 				setUsernameValidationMsg('Username already taken')
 				setUsernameValidationColor('darkred')
-			break;
+				break;
 			case 500:
 				setUsernameValidationMsg('Server error!! try again')
 				setUsernameValidationColor('darkred')
-			break;
+				break;
 		}
 	}
 
-	function matchPassword(tmpPass1, tmpPass2){
-		setPasswordMatchMsg( tmpPass1 === tmpPass2 ? '': 'Password did not match')
+	function matchPassword(tmpPass1, tmpPass2) {
+		setPasswordMatchMsg(tmpPass1 === tmpPass2 ? '' : 'Password did not match')
 		setPasswordMatchColor(tmpPass1 === tmpPass2 ? '' : 'darkred')
 	}
 
-	function validatePassword(tempPassword){
-		setPasswordValidationMsg( tempPassword.length<6 ? 'Password must be at least 6 characters long': '')
-		setPasswordValidationColor(tempPassword.length<6 ? 'darkred' : '')
+	function validatePassword(tempPassword) {
+		setPasswordValidationMsg(tempPassword.length < 6 ? 'Password must be at least 6 characters long' : '')
+		setPasswordValidationColor(tempPassword.length < 6 ? 'darkred' : '')
 	}
 
-	function validateEmail(tempEmail){
+	function validateEmail(tempEmail) {
 		const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		const valid = re.test(tempEmail);
-		setEmailValidationMsg( !valid ? 'Invalid email format': '')
-		setEmailValidationColor( !valid ? 'darkred' : '')
+		setEmailValidationMsg(!valid ? 'Invalid email format' : '')
+		setEmailValidationColor(!valid ? 'darkred' : '')
 	}
 
 	return (
@@ -113,53 +113,53 @@ function Register() {
 					<div className='login_with_cred center'>
 						<input
 							className='login_shape'
-							value={name} 
+							value={name}
 							onChange={e => setName(e.target.value)}
-							type="text" 
-							placeholder="Name" 
+							type="text"
+							placeholder="Name"
 						/>
 						<div className='linear'>
 							<input
 								className='login_shape'
-								value={email} 
+								value={email}
 								onChange={e => [setEmail(e.target.value), validateEmail(e.target.value)]}
-								type="text" 
-								placeholder="Email" 
+								type="text"
+								placeholder="Email"
 							/>
-							<p style={{color:emailValidationColor}}>{emailValidationMsg}</p>
+							<p style={{ color: emailValidationColor }}>{emailValidationMsg}</p>
 						</div>
 						<div className='linear'>
 							<input
 								className='login_shape'
-								value={username} 
-								onChange={e =>[setUsername(e.target.value), validateUsename(e.target.value)]}
-								type="text" 
-								placeholder="Username" 
+								value={username}
+								onChange={e => [setUsername(e.target.value), validateUsename(e.target.value)]}
+								type="text"
+								placeholder="Username"
 							/>
-							<p style={{color:usernameValidationColor}}>{usernameValidationMsg}</p>
+							<p style={{ color: usernameValidationColor }}>{usernameValidationMsg}</p>
 						</div>
 						<div className='linear'>
 							<input
 								className='login_shape'
-								value={password} 
+								value={password}
 								onChange={e => [setPassword(e.target.value), validatePassword(e.target.value)
-											, matchPassword(e.target.value, password2)]}
-								type="text" 
-								placeholder="Password" 
+									, matchPassword(e.target.value, password2)]}
+								type="text"
+								placeholder="Password"
 							/>
-							<p style={{color:passwordValidationColor}}>{passwordValidationMsg}</p>
+							<p style={{ color: passwordValidationColor }}>{passwordValidationMsg}</p>
 						</div>
 						<div className='linear'>
 							<input
 								className='login_shape'
 								value={password2}
 								onChange={e => [setPassword2(e.target.value), matchPassword(e.target.value, password)]}
-								type="text" 
-								placeholder="Confirm Password" 
+								type="text"
+								placeholder="Confirm Password"
 							/>
-							<p style={{color:passwordMatchColor}}>{passwordMatchMsg}</p>
+							<p style={{ color: passwordMatchColor }}>{passwordMatchMsg}</p>
 						</div>
-					</div>		
+					</div>
 				</div>
 
 				<div className='center'>

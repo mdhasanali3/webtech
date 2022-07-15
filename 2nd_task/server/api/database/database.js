@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('webtech_Blog','root','',{
-    dialect:'mysql'
+const sequelize = new Sequelize('webtech_blog', 'root', '', {
+    dialect: 'mysql'
 });
 
 module.exports = sequelize;

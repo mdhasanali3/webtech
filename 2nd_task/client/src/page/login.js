@@ -6,14 +6,14 @@ function Login() {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 
-	async function loginUser(event){
+	async function loginUser(event) {
 		event.preventDefault();
 		const response = await fetch('http://localhost:3001/user/login', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
-				body: JSON.stringify({
+			body: JSON.stringify({
 				username,
 				password
 			}),
@@ -37,24 +37,24 @@ function Login() {
 				<h1>Login</h1>
 				<div className='login center2'>
 					<div className='login_with_cred center'>
-					<input
-						className='login_shape'
-						value={username} 
-						onChange={e => setUsername(e.target.value)}
-						type="text" 
-						placeholder="Username" 
-					/>
-					<input
-						className='login_shape'
-						value={password} 
-						onChange={e => setPassword(e.target.value)}
-						type="text" 
-						placeholder="Password" 
-					/>
-					<button className='login_shape' onClick={loginUser}>Login</button>
-					<pre className='linear'>
-						Don't have an account? <a href="/register">Register now</a>
-					</pre>
+						<input
+							className='login_shape'
+							value={username}
+							onChange={e => setUsername(e.target.value)}
+							type="text"
+							placeholder="Username"
+						/>
+						<input
+							className='login_shape'
+							value={password}
+							onChange={e => setPassword(e.target.value)}
+							type="password"
+							placeholder="Password"
+						/>
+						<button className='login_shape' onClick={loginUser}>Login</button>
+						<pre className='linear'>
+							Don't have an account? <a href="/register">Register now</a>
+						</pre>
 					</div>
 				</div>
 				<div className='center'>
